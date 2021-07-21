@@ -1,0 +1,23 @@
+.btn-laranja {
+  color: #fff;
+  background-color: #E81504;
+  border-color: #E82800;
+}
+
+.btn-laranja:hover {
+  color: #fff;
+  opacity: 0.9;
+}
+
+
+.btn-roxo {
+  color: #fff;
+  background-color: #6D0FE8;
+  border-color: #9703E8;
+}
+
+.btn-roxo:hover {
+  color: #fff;
+  background-color: #722EFF;
+  border-color: #9703E8;
+}

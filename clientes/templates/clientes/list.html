@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} Clientes {% endblock %}
+
+{% block navbar %}
+    {% include "components/_navbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div class="margin-10">
+            <form method="get" action="">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control"
+                               type="search" value="{{ request.GET.termo }}"
+                               id="search-input"
+                               placeholder="Digite o nome ou código do cliente para pesquisa"
+                               autocomplete="off"
+                               name="termo">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <a href="{% url 'create_cliente' %}" class="btn btn-success">Cadastrar Cliente</a>
+        {% include 'components/_messages.html' %}
+
+        {% if clientes|length != 0 %}
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Clientes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cliente in  clientes %}
+                    <tr>
+                        <td colspan="2">
+                            <a href="{% url 'detail_cliente' cliente.id %}">
+                                {{ cliente.nome|upper }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% include 'components/_paginator.html' %}
+
+        {% else %}
+            <h3>Nenhum cliente cadastrado</h3>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% include "components/_messages-js.html" %}
+{% endblock %}

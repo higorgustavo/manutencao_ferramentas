@@ -1,0 +1,38 @@
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if clientes.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?p=1&termo={{ request.GET.termo }}">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?p={{ clientes.previous_page_number }}&termo={{ request.GET.termo }}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&lsaquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for pagina in clientes.paginator.page_range %}
+            {% if clientes.number == pagina %}
+                <li class="page-item active">
+                    <a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{ pagina }}</a>
+                </li>
+            {% elif pagina > clientes.number|add:'-3' and pagina < clientes.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{ pagina }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if clientes.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?p={{ clientes.next_page_number }}&termo={{ request.GET.termo }}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&rsaquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   href="?p={{ clientes.paginator.num_pages }}&termo={{ request.GET.termo }}">&raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
