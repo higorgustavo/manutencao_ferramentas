@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Alterando dados do Cliente {% endblock %}
+
+{% block navbar %}
+    {% include "components/_navbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <h3 class="mt-3 margin-bottom-10">Alterando dados do Cliente</h3>
+    <div class="form-floating mb-3">
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="row margin-bottom-10">
+                <div class="col-sm-8">
+                    {{ form.nome|as_crispy_field }}
+                    {{ form.nome|as_crispy_errors }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form.codigo_ciss|as_crispy_field }}
+                    {{ form.codigo_ciss|as_crispy_errors }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-sm-6">
+                    {{ form.telefone1|as_crispy_field }}
+                    {{ form.telefone1|as_crispy_errors }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form.telefone2|as_crispy_field }}
+                    {{ form.telefone2|as_crispy_errors }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="Salvar alterações">
+
+            <input type="reset" class="btn btn-secondary" value="Cancelar"
+                   onclick="location.href='{% url 'detail_cliente' cliente.id %}'">
+        </form>
+    </div>
+
+{% endblock %}

@@ -8,7 +8,7 @@
 
 {% block content %}
     <div>
-        <div class="margin-10">
+        <div class="margin-bottom-10">
             <form method="get" action="">
                 <div class="form-group row">
                     <div class="col-12">
@@ -23,7 +23,7 @@
             </form>
         </div>
 
-        <a href="{% url 'create_cliente' %}" class="btn btn-success">Cadastrar Cliente</a>
+        <a href="{% url 'create_cliente' %}" class="btn btn-success margin-bottom-10">Cadastrar Cliente</a>
         {% include 'components/_messages.html' %}
 
         {% if clientes|length != 0 %}

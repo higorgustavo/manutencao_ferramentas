@@ -55,3 +55,20 @@ def create_cliente(request):
                 "form": form
             }
             return render(request, "clientes/cerate.html", context)
+
+
+def update_cliente(request, id):
+    cliente = get_object_or_404(Cliente, id=id)
+    form = ClienteForm(instance=cliente)
+    if request.method == "POST":
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            cliente = form.save(commit=False)
+            cliente.save()
+            messages.add_message(request, messages.SUCCESS, 'Dados alterados com sucesso!')
+            return redirect('/cliente/' + str(cliente.id))
+    context = {
+        'cliente': cliente,
+        'form': form,
+    }
+    return render(request, "clientes/updade.html", context)
