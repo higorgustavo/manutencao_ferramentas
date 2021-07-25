@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <h4 class="margin-bottom-10">Nova Ferramenta</h4>
+    <h4 class="title">Nova Ferramenta</h4>
     <div class="form-floating mb-3">
         <form method="post" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn btn-success" value="Salvar">
+            <input type="submit" class="btn btn-success" value="Cadastrar">
 
             <input type="reset" class="btn btn-secondary" value="Voltar"
                    onclick="location.href='{% url 'detail_cliente' cliente.id %}'">

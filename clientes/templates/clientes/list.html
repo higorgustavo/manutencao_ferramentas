@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+    <h4 class="title">Lista de Clientes</h4>
     <div>
         <div class="margin-bottom-10">
             <form method="get" action="">
@@ -15,7 +16,7 @@
                         <input class="form-control"
                                type="search" value="{{ request.GET.termo }}"
                                id="search-input"
-                               placeholder="Digite o nome ou código do cliente para pesquisa"
+                               placeholder="Digite o nome do cliente para pesquisa"
                                autocomplete="off"
                                name="termo">
                     </div>
@@ -23,7 +24,9 @@
             </form>
         </div>
 
-        <a href="{% url 'create_cliente' %}" class="btn btn-success margin-bottom-10">Cadastrar Cliente</a>
+        <input type="submit" class="btn btn-success margin-bottom-10" value="Cadastrar Cliente"
+               onclick="location.href='{% url 'create_cliente' %}'">
+
         {% include 'components/_messages.html' %}
 
         {% if clientes|length != 0 %}
@@ -32,9 +35,9 @@
                 <tbody>
                 {% for cliente in  clientes %}
                     <tr>
-                        <td colspan="2">
-                            <a href="{% url 'detail_cliente' cliente.id %}">{{ cliente.nome|upper }}</a>
-                        </td>
+                        <th colspan="2">
+                            <a class="link" href="{% url 'detail_cliente' cliente.id %}">{{ cliente.nome|upper }}</a>
+                        </th>
                     </tr>
                 {% endfor %}
                 </tbody>

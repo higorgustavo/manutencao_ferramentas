@@ -14,4 +14,21 @@
   margin-top: 10px;
 }
 
-.link-
+.title {
+  margin: 0 auto 20px auto;
+  text-align: center;
+}
+
+.link {
+  color: #1C1C1C;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #363636;
+  text-decoration: underline;
+}
+
+.responsive-link {
+  margin-top: 0;
+}

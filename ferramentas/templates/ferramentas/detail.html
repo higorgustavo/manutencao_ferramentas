@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ ferramenta.nome }} {% endblock %}
+{% block title %} {{ ferramenta.nome|title }} {% endblock %}
 
 {% block navbar %}
     {% include "components/_navbar.html" %}
@@ -9,8 +9,9 @@
 {% block content %}
     {% include 'components/_messages.html' %}
 
+    <h4 class="title">Dados da Ferramenta</h4>
     <div>
-        <h4 class="margin-bottom-10">{{ ferramenta.nome }}</h4>
+        <p>Nome: <strong>{{ ferramenta.nome }}</strong></p>
         {% if ferramenta.numero_serie is not null %}
             <p>Número de série: <strong>{{ ferramenta.numero_serie }}</strong></p>
         {% endif %}
@@ -18,41 +19,84 @@
             <p>Data de compra: <strong>{{ ferramenta.data_compra|date:"d/m/Y" }}</strong></p>
         {% endif %}
 
-
         <input type="reset" class="btn btn-secondary" value="Voltar"
-                   onclick="location.href='{% url 'detail_cliente' cliente.id %}'">
+               onclick="location.href='{% url 'detail_cliente' cliente.id %}'">
+
     </div>
     <hr>
     <div>
+        <h4 class="title">Manutenções</h4>
 
-        <input type="submit" class="btn btn-success" value="Iniciar Manutenção"
-               onclick="location.href='#'">
+        <input type="submit" class="btn btn-success" value="Registrar Manutenção"
+               onclick="location.href='{% url 'create_manutencao' ferramenta.id %}'">
 
-    <!---
-        {% if ferramentas|length != 0 %}
+        {% if manutencoes|length != 0 %}
             <table class="table table-hover margin-top-10">
+                <thead>
+                <tr>
+                    <th colspan="3">Data da Manutenção</th>
+                    <th colspan="3">Status</th>
+                    <th scope="col">Ações</th>
+                </tr>
+                </thead>
                 <tbody>
-                {% for ferramenta in ferramentas %}
+                {% for manutencao in manutencoes %}
                     <tr>
                         <td colspan="3">
-                            <strong>{{ ferramenta.nome }}</strong>
+                            <strong>{{ manutencao.data_manutencao|date:"d/m/Y" }}</strong>
+                        </td>
+                        <td colspan="3">
+                            <strong>{{ manutencao.status_manutencao }}</strong>
                         </td>
                         <td>
-                            <a href="{% url 'update_ferramenta' ferramenta.id %}">Editar</a>
+                            <button class="btn btn-primary btn-sm"
+                                    onclick="carregarModal({{ manutencao.id }})"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-manutencao">
+                                Ver
+                            </button>
+                            {% if manutencao.status_manutencao == "Agendada" %}
+                                <a class="btn btn-success btn-sm" href="#">Realizar</a>
+                            {% elif manutencao.status_manutencao == "Atrasada" %}
+                                <a class="btn btn-danger btn-sm" href="#">Realizar</a>
+                            {% elif manutencao.status_manutencao == "Cancelada" %}
+                                <a class="btn btn-dark btn-sm" href="#">Alterar</a>
+                            {% elif manutencao.status_manutencao == "Concluída" %}
+                                <a class="btn btn-warning btn-sm" href="#">Alterar</a>
+                            {% endif %}
                         </td>
                     </tr>
+                    <div class="modal fade" id="modal-manutencao" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="corpo_manutencao">
+
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <p class="margin-top-10"><strong>Cliente não possui ferramentas cadastradas</strong></p>
+            <p class="margin-top-10"><strong>Nenhuma manutenção registrada</strong></p>
         {% endif %}
-        --->
-
     </div>
 
 {% endblock %}
 
 {% block scripts %}
     {% include "components/_messages-js.html" %}
+
+    <script>
+        function carregarModal(id) {
+            $.ajax({
+                url: '/manutencao/' + id + '/visualizar',
+                success: function (data) {
+                    $('#corpo_manutencao').html(data)
+                }, error: function (data) {
+                },
+            });
+        }
+    </script>
 {% endblock %}

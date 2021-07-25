@@ -10,7 +10,8 @@
     {% include 'components/_messages.html' %}
 
     <div>
-        <h4 class="margin-bottom-10">{{ cliente.nome }}</h4>
+        <h4 class="title">Dados do Cliente</h4>
+        <p>Nome: <strong>{{ cliente.nome|title }}</strong></p>
         {% if cliente.codigo_ciss is not null %}
             <p>Código no CISS: <strong>{{ cliente.codigo_ciss }}</strong></p>
         {% endif %}
@@ -27,24 +28,39 @@
     </div>
     <hr>
     <div>
-        <h3 class="margin-bottom-10">Ferramentas</h3>
+        <h3 class="title">Ferramentas</h3>
 
         <input type="submit" class="btn btn-success" value="Adicionar Ferramenta"
                onclick="location.href='{% url 'create_ferramenta' cliente.id %}'">
 
         {% if ferramentas|length != 0 %}
             <table class="table table-hover margin-top-10">
+                <thead>
+                <tr>
+                    <th colspan="3">Nome</th>
+                    <th scope="col">Ações</th>
+                </tr>
+                </thead>
                 <tbody>
                 {% for ferramenta in ferramentas %}
                     <tr>
                         <td colspan="3">
-                            <a href="{% url 'detail_ferramenta' ferramenta.id %}">
-                                <strong>{{ ferramenta.nome }}</strong>
-                            </a>
+                            {% if ferramenta.numero_serie is not null %}
+                                <a class="link" href="{% url 'detail_ferramenta' ferramenta.id %}">
+                                    <strong>{{ ferramenta.nome }} - {{ ferramenta.numero_serie }}</strong>
+                                </a>
+                            {% else %}
+                                <a class="link" href="{% url 'detail_ferramenta' ferramenta.id %}">
+                                    <strong>{{ ferramenta.nome }}</strong>
+                                </a>
+                            {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'update_ferramenta' ferramenta.id %}">Editar</a>
+
+                            <input type="submit" class="btn btn-warning btn-sm responsive-link" value="Editar"
+                                   onclick="location.href='{% url 'update_ferramenta' ferramenta.id %}'">
                         </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -52,7 +68,6 @@
         {% else %}
             <p class="margin-top-10"><strong>Cliente não possui ferramentas cadastradas</strong></p>
         {% endif %}
-
     </div>
 
 {% endblock %}

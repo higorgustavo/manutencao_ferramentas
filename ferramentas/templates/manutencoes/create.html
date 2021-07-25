@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Registrar Manutenção {% endblock %}
+
+{% block navbar %}
+    {% include "components/_navbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <h3 class="title">Nova Manutenção</h3>
+    <div class="form-floating mb-3">
+        <h5>Ferramenta: <strong>{{ ferramenta.nome }}</strong></h5>
+        <hr>
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm margin-bottom-10">
+                    {{ form.data_manutencao|as_crispy_field }}
+                    {{ form.data_manutencao|as_crispy_errors }}
+                </div>
+                <div class="col-sm margin-bottom-10">
+                    {{ form.status_manutencao|as_crispy_field }}
+                    {{ form.status_manutencao|as_crispy_errors }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm margin-bottom-10">
+                    {{ form.observacoes|as_crispy_field }}
+                    {{ form.observacoes|as_crispy_errors }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-sm margin-bottom-10">
+                    {{ form.valor|as_crispy_field }}
+                    {{ form.valor|as_crispy_errors }}
+                </div>
+                <div class="col-sm margin-bottom-10">
+                    {{ form.numero_os|as_crispy_field }}
+                    {{ form.numero_os|as_crispy_errors }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="Registrar Manutenção">
+
+            <input type="reset" class="btn btn-secondary" value="Voltar"
+                   onclick="location.href='{% url 'detail_ferramenta' ferramenta.id %}'">
+        </form>
+    </div>
+
+{% endblock %}

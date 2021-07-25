@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from clientes.models import Cliente
-from .models import Ferramenta, Manutencao
-from .forms import FerramentaForm
+from ..models import Ferramenta, Manutencao
+from ..forms import FerramentaForm
 from django.contrib import messages
 
 
 def detail_ferramenta(reqeust, id):
     ferramenta = get_object_or_404(Ferramenta, id=id)
+    manutencoes = Manutencao.objects.filter(ferramenta_id=ferramenta.id)
     cliente = ferramenta.cliente
     context = {
         'cliente': cliente,
-        'ferramenta': ferramenta
+        'ferramenta': ferramenta,
+        'manutencoes': manutencoes,
     }
     return render(reqeust, "ferramentas/detail.html", context)
 
@@ -61,4 +63,6 @@ def update_ferramenta(request, id):
         'form': form
     }
     return render(request, "ferramentas/update.html", context)
+
+
 

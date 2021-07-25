@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <h4 class="margin-bottom-10">Cadastro Cliente</h4>
+    <h4 class="title">Cadastro de Cliente</h4>
     <div class="form-floating mb-3">
         <form method="post" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
@@ -32,9 +32,12 @@
                     {{ form.telefone2|as_crispy_errors }}
                 </div>
             </div>
-            <input type="submit" class="btn btn-success" value="Salvar">
+
+            <input type="submit" class="btn btn-success" value="Cadastrar">
+
             <input type="reset" class="btn btn-secondary" value="Cancelar"
                    onclick="location.href='{% url 'list_clintes' %}'">
+
         </form>
     </div>
 

@@ -1,12 +1,10 @@
-.btn-laranja {
-  color: #fff;
-  background-color: #E81504;
-  border-color: #E82800;
+.btn-info-agendar {
+  background-color: #98FB98;
+  border-color: #90EE90;
 }
 
-.btn-laranja:hover {
-  color: #fff;
-  opacity: 0.9;
+.btn-info-agendar:hover {
+  background-color: #98FB98;
 }
 
 
