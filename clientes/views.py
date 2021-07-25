@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Cliente
 from .forms import ClienteForm
+from ferramentas.models import Ferramenta, Manutencao
 from django.contrib import messages
 
 
@@ -26,8 +27,10 @@ def list_clintes(request):
 
 def detail_cliente(reqeust, id):
     cliente = get_object_or_404(Cliente, id=id)
+    ferramentas = Ferramenta.objects.filter(cliente_id=cliente.id)
     context = {
-        'cliente': cliente
+        'cliente': cliente,
+        'ferramentas': ferramentas
     }
     return render(reqeust, "clientes/detail.html", context)
 
@@ -38,7 +41,7 @@ def create_cliente(request):
         context = {
             'form': form,
         }
-        return render(request, "clientes/cerate.html", context)
+        return render(request, "clientes/create.html", context)
 
     elif request.method == "POST":
         form = ClienteForm(request.POST)
@@ -54,7 +57,7 @@ def create_cliente(request):
             context = {
                 "form": form
             }
-            return render(request, "clientes/cerate.html", context)
+            return render(request, "clientes/create.html", context)
 
 
 def update_cliente(request, id):

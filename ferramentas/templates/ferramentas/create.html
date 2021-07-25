@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} Cadastro ferramenta {% endblock %}
+
+{% block navbar %}
+    {% include "components/_navbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <h4 class="margin-bottom-10">Nova Ferramenta</h4>
+    <div class="form-floating mb-3">
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="row margin-bottom-10">
+                <div class="col-sm-5 margin-bottom-10">
+                    {{ form.nome|as_crispy_field }}
+                    {{ form.nome|as_crispy_errors }}
+                </div>
+                <div class="col-sm-4 margin-bottom-10">
+                    {{ form.numero_serie|as_crispy_field }}
+                    {{ form.numero_serie|as_crispy_errors }}
+                </div>
+                <div class="col-sm-3 margin-bottom-10">
+                    {{ form.data_compra|as_crispy_field }}
+                    {{ form.data_compra|as_crispy_errors }}
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="Salvar">
+
+            <input type="reset" class="btn btn-secondary" value="Voltar"
+                   onclick="location.href='{% url 'detail_cliente' cliente.id %}'">
+        </form>
+    </div>
+
+{% endblock %}

@@ -29,18 +29,11 @@
         {% if clientes|length != 0 %}
 
             <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Clientes</th>
-                </tr>
-                </thead>
                 <tbody>
                 {% for cliente in  clientes %}
                     <tr>
                         <td colspan="2">
-                            <a href="{% url 'detail_cliente' cliente.id %}">
-                                {{ cliente.nome|upper }}
-                            </a>
+                            <a href="{% url 'detail_cliente' cliente.id %}">{{ cliente.nome|upper }}</a>
                         </td>
                     </tr>
                 {% endfor %}

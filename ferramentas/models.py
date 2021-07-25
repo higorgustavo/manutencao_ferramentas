@@ -3,8 +3,8 @@ from clientes.models import Cliente
 
 
 class Ferramenta(models.Model):
-    nome = models.CharField(max_length=200)
-    serie = models.CharField(max_length=100, null=True, blank=True)
+    nome = models.CharField(max_length=200, verbose_name="Nome da ferramenta")
+    numero_serie = models.CharField(max_length=100, null=True, blank=True, verbose_name="Número de série")
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     data_compra = models.DateField(null=True, blank=True, verbose_name="Data de compra")
 
@@ -14,8 +14,12 @@ class Ferramenta(models.Model):
         ordering = ['nome', ]
         db_table = 'ferramentas'
 
+    def save(self, *args, **kwargs):
+        self.nome = self.nome.upper()
+        return super(Ferramenta, self).save()
+
     def __str__(self):
-        return self.nome + " - " + self.serie
+        return self.nome + " - " + self.numero_serie
 
 
 class Manutencao(models.Model):
@@ -43,4 +47,4 @@ class Manutencao(models.Model):
         db_table = 'manutencoes'
 
     def __str__(self):
-        return self.ferramenta.nome + " - " + self.ferramenta.serie + " - " + str(self.data_manutencao)
+        return self.ferramenta.nome + " - " + self.ferramenta.numero_serie + " - " + str(self.data_manutencao)
