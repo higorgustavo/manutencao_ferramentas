@@ -56,13 +56,17 @@
                                 Ver
                             </button>
                             {% if manutencao.status_manutencao == "Agendada" %}
-                                <a class="btn btn-success btn-sm" href="#">Realizar</a>
+                                <input type="submit" class="btn btn-success btn-sm" value="Realizar"
+                                       onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Atrasada" %}
-                                <a class="btn btn-danger btn-sm" href="#">Realizar</a>
+                                <input type="submit" class="btn btn-warning btn-sm" value="Realizar"
+                                       onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Cancelada" %}
-                                <a class="btn btn-dark btn-sm" href="#">Alterar</a>
+                                <input type="submit" class="btn btn-danger btn-sm" value="Alterar"
+                                       onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Concluída" %}
-                                <a class="btn btn-warning btn-sm" href="#">Alterar</a>
+                                <input type="submit" class="btn btn-secondary btn-sm" value="Refazer"
+                                       onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% endif %}
                         </td>
                     </tr>

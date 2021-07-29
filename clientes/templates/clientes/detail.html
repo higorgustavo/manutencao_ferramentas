@@ -59,8 +59,8 @@
 
                             <input type="submit" class="btn btn-warning btn-sm responsive-link" value="Editar"
                                    onclick="location.href='{% url 'update_ferramenta' ferramenta.id %}'">
-                        </td>
 
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -74,4 +74,11 @@
 
 {% block scripts %}
     {% include "components/_messages-js.html" %}
+    <script>
+        function carregarModal(url) {
+            $('#modal-agendamento').load(url, function () {
+                $(this).modal('show');
+            });
+        }
+    </script>
 {% endblock %}
