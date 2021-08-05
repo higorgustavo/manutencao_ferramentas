@@ -2,10 +2,6 @@
 
 {% block title %} {{ ferramenta.nome|title }} {% endblock %}
 
-{% block navbar %}
-    {% include "components/_navbar.html" %}
-{% endblock %}
-
 {% block content %}
     {% include 'components/_messages.html' %}
 
@@ -29,6 +25,16 @@
 
         <input type="submit" class="btn btn-success" value="Registrar Manutenção"
                onclick="location.href='{% url 'create_manutencao' ferramenta.id %}'">
+
+        <a tabindex="0" class="btn btn-sm btn-light" role="button" data-bs-toggle="popover" data-bs-trigger="focus"
+           title="Módulo de Manutenções" data-bs-content="<p>Permite registar manutenções avulsas no sistema, como:
+           manutenções passadas da ferramenta ou agendar manutenções futuras.</p>
+           <p>Clicando em <strong>Ver</strong> são exibidos os detalhes da manutenção.</p>
+           <p>Clicando em <strong>Aletrar</strong>, <strong>Realizar</strong> ou <strong>Refazer</strong>
+           permite que o usuário possa corrgir as informações de uma manutenção ou finalizar.
+           Alguns campos opcionais podem ser preenchidos para melhorar o detalhamento da manutenção.</p>">
+            Como usar?
+        </a>
 
         {% if manutencoes|length != 0 %}
             <table class="table table-hover margin-top-10">
@@ -102,5 +108,11 @@
                 },
             });
         }
+    </script>
+    <script>
+        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl, {html: true})
+        });
     </script>
 {% endblock %}

@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %} Cliente {% endblock %}
+{% load static %}
 
-{% block navbar %}
-    {% include "components/_navbar.html" %}
-{% endblock %}
+{% block title %} Cliente {% endblock %}
 
 {% block content %}
     {% include 'components/_messages.html' %}
@@ -33,6 +31,14 @@
         <input type="submit" class="btn btn-success" value="Adicionar Ferramenta"
                onclick="location.href='{% url 'create_ferramenta' cliente.id %}'">
 
+        <a tabindex="0" class="btn btn-sm btn-light" role="button" data-bs-toggle="popover" data-bs-trigger="focus"
+           title="Módulo de Agendamento" data-bs-content="<p>Para realizar um agendamento rápido,
+           clique no botão <strong>Agendar</strong> localizado na mesma linha
+           com o nome da ferramenta desejada e informe a data do agendamento.</p>
+           <p>Para visualizar o historico de manutenções de determinada ferramenta, clique sobre o nome da mesma</p>">
+            Como usar?
+        </a>
+
         {% if ferramentas|length != 0 %}
             <table class="table table-hover margin-top-10">
                 <thead>
@@ -56,10 +62,11 @@
                             {% endif %}
                         </td>
                         <td>
+                            <input type="submit" class="btn btn-primary btn-sm responsive-link" value="Agendar"
+                                   onclick="location.href='{% url 'agendamento_rapido' ferramenta.id %}'">
 
                             <input type="submit" class="btn btn-warning btn-sm responsive-link" value="Editar"
                                    onclick="location.href='{% url 'update_ferramenta' ferramenta.id %}'">
-
                         </td>
                     </tr>
                 {% endfor %}
@@ -75,10 +82,9 @@
 {% block scripts %}
     {% include "components/_messages-js.html" %}
     <script>
-        function carregarModal(url) {
-            $('#modal-agendamento').load(url, function () {
-                $(this).modal('show');
-            });
-        }
+        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl, {html: true})
+        });
     </script>
 {% endblock %}

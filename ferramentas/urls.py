@@ -9,4 +9,5 @@ urlpatterns = [
     path("ferramenta/<int:id>/manutencao/add", create_manutencao, name='create_manutencao'),
     path("manutencao/<int:id>/visualizar", detail_manutencao, name='detail_manutencao'),
     path("manutencao/<int:id>/update", update_manutencao, name='update_manutencao'),
+    path("ferramenta/<int:id>/agendamento", agendamento_rapido, name='agendamento_rapido'),
 ]

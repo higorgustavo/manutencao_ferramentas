@@ -1,23 +1,27 @@
+{% extends 'base.html' %}
 {% load crispy_forms_filters %}
-<div class="modal-dialog">
-    <div class="modal-content" id="corpo_agendamento">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agendamento Rápido</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form method="post" enctype="multipart/form-data">
+
+{% block title %} Agendamento Rápido {% endblock %}
+
+{% block content %}
+    <h3 class="title">Agendar Manutenção</h3>
+    <div class="form-floating mb-3">
+        <h5>Ferramenta: <strong>{{ ferramenta.nome }}</strong></h5>
+        <hr>
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
-            <div class="modal-body">
-                <p>Manutenção da {{ ferramenta.nome }} agendada para:</p>
-                {{ form.data_manutencao|as_crispy_field }}
-                {{ form.data_manutencao|as_crispy_errors }}
-                {{ form.status_manutencao|as_crispy_field }}
-                {{ form.data_manutencao|as_crispy_errors }}
+            <div class="row">
+                <div class="col-sm margin-bottom-10">
+                    {{ form.data_manutencao|as_crispy_field }}
+                    {{ form.data_manutencao|as_crispy_errors }}
+                </div>
             </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-success" value="Agendar">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
+
+            <input type="submit" class="btn btn-success" value="Agendar">
+
+            <input type="reset" class="btn btn-secondary" value="Voltar"
+                   onclick="location.href='{% url 'detail_cliente' ferramenta.cliente.id %}'">
         </form>
     </div>
-</div>
+
+{% endblock %}

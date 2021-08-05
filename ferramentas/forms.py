@@ -22,3 +22,13 @@ class ManutencaoForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'placeholder': 'Se necessário escreva algo a respeito da manutenção',
                        'id': 'observacoes', 'rows': 4}),
         }
+
+
+class AgendamentoForm(forms.ModelForm):
+    class Meta:
+        model = Manutencao
+        fields = {'data_manutencao'}
+        widgets = {
+            'data_manutencao': forms.TextInput(
+                attrs={'class': 'form-control', 'type': 'date', 'id': 'data_manutencao'}),
+        }

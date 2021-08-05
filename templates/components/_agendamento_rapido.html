@@ -1,0 +1,23 @@
+{% load crispy_forms_filters %}
+<div class="modal-dialog">
+    <div class="modal-content" id="corpo_agendamento">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agendamento Rápido</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <p>Manutenção da {{ ferramenta.nome }} agendada para:</p>
+                {{ form.data_manutencao|as_crispy_field }}
+                {{ form.data_manutencao|as_crispy_errors }}
+                {{ form.status_manutencao|as_crispy_field }}
+                {{ form.data_manutencao|as_crispy_errors }}
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Agendar">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </form>
+    </div>
+</div>

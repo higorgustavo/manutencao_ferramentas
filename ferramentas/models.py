@@ -23,7 +23,6 @@ class Ferramenta(models.Model):
 
 
 class Manutencao(models.Model):
-
     STATUS = [
         ["Agendada", "Agendada"],
         ["Atrasada", "Atrasada"],
@@ -33,7 +32,8 @@ class Manutencao(models.Model):
 
     ferramenta = models.ForeignKey(Ferramenta, on_delete=models.CASCADE)
     data_manutencao = models.DateField(verbose_name="Data da Manutenção")
-    status_manutencao = models.CharField(max_length=25, choices=STATUS, verbose_name="Status da Manutenção")
+    status_manutencao = models.CharField(max_length=25, choices=STATUS, verbose_name="Status da Manutenção",
+                        )
     # data_prox_manutencao = models.DateField(null=True, blank=True, verbose_name="Data da próxima Manutenção")
     observacoes = models.TextField(verbose_name="Observações (opicional)", null=True, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
