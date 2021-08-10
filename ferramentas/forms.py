@@ -5,9 +5,12 @@ from .models import Ferramenta, Manutencao
 class FerramentaForm(forms.ModelForm):
     class Meta:
         model = Ferramenta
-        fields = {'nome', 'numero_serie', 'data_compra'}
+        fields = {'nome', 'numero_serie', 'data_compra', 'observacoes'}
         widgets = {
             'data_compra': forms.TextInput(attrs={'class': 'form-control', 'type': 'date', 'id': 'data_compra'}),
+            'observacoes': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Se necessário escreva algo a respeito da ferramenta',
+                       'id': 'observacoes', 'rows': 4}),
         }
 
 

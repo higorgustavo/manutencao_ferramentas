@@ -1,5 +1,6 @@
 from django.db import models
 from clientes.models import Cliente
+from datetime import date
 
 
 class Ferramenta(models.Model):
@@ -7,6 +8,7 @@ class Ferramenta(models.Model):
     numero_serie = models.CharField(max_length=100, null=True, blank=True, verbose_name="Número de série")
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     data_compra = models.DateField(null=True, blank=True, verbose_name="Data de compra")
+    observacoes = models.TextField("Observações sobre a ferramenta", null=True, blank=True)
 
     class Meta:
         verbose_name = 'Ferramenta'
@@ -32,8 +34,7 @@ class Manutencao(models.Model):
 
     ferramenta = models.ForeignKey(Ferramenta, on_delete=models.CASCADE)
     data_manutencao = models.DateField(verbose_name="Data da Manutenção")
-    status_manutencao = models.CharField(max_length=25, choices=STATUS, verbose_name="Status da Manutenção",
-                        )
+    status_manutencao = models.CharField(max_length=25, choices=STATUS, verbose_name="Status da Manutenção")
     # data_prox_manutencao = models.DateField(null=True, blank=True, verbose_name="Data da próxima Manutenção")
     observacoes = models.TextField(verbose_name="Observações (opicional)", null=True, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,

@@ -14,6 +14,9 @@
         {% if ferramenta.data_compra is not null %}
             <p>Data de compra: <strong>{{ ferramenta.data_compra|date:"d/m/Y" }}</strong></p>
         {% endif %}
+        {% if ferramenta.observacoes is not null %}
+            <p>Observações: <strong>{{ ferramenta.observacoes }}</strong></p>
+        {% endif %}
 
         <input type="reset" class="btn btn-secondary" value="Voltar"
                onclick="location.href='{% url 'detail_cliente' cliente.id %}'">

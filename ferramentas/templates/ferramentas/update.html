@@ -21,6 +21,10 @@
                     {{ form.data_compra|as_crispy_field }}
                     {{ form.data_compra|as_crispy_errors }}
                 </div>
+                <div class="col-sm margin-bottom-10">
+                    {{ form.observacoes|as_crispy_field }}
+                    {{ form.observacoes|as_crispy_errors }}
+                </div>
             </div>
 
             <input type="submit" class="btn btn-success" value="Salvar Alterações">

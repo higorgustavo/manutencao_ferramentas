@@ -3,12 +3,20 @@ from clientes.models import Cliente
 from ..models import Ferramenta, Manutencao
 from ..forms import FerramentaForm
 from django.contrib import messages
+from datetime import date
 
 
 def detail_ferramenta(reqeust, id):
     ferramenta = get_object_or_404(Ferramenta, id=id)
     manutencoes = Manutencao.objects.filter(ferramenta_id=ferramenta.id)
     cliente = ferramenta.cliente
+    for manutencao in manutencoes:
+        if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
+            manutencao.status_manutencao = "Atrasada"
+            Manutencao.objects.bulk_update(manutencoes, ['status_manutencao'])
+        if manutencao.status_manutencao == "Atrasada" and manutencao.data_manutencao >= date.today():
+            manutencao.status_manutencao = "Agendada"
+            Manutencao.objects.bulk_update(manutencoes, ['status_manutencao'])
     context = {
         'cliente': cliente,
         'ferramenta': ferramenta,

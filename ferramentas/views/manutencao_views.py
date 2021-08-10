@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Ferramenta, Manutencao
 from ..forms import ManutencaoForm, AgendamentoForm
 from django.contrib import messages
+from datetime import date
 
 
 def detail_manutencao(request, id):
@@ -30,8 +31,13 @@ def create_manutencao(request, id):
         if form.is_valid():
             manutencao = form.save(commit=False)
             manutencao.ferramenta = ferramenta
+            if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
+                manutencao.status_manutencao = "Atrasada"
+            if manutencao.status_manutencao == "Atrasada":
+                messages.add_message(request, messages.WARNING, 'Manutenção ATRASADA!!!')
+            else:
+                messages.add_message(request, messages.SUCCESS, "Manutenção registrada com sucesso")
             manutencao.save()
-            messages.add_message(request, messages.SUCCESS, "Manutenção registrada com sucesso")
             return redirect('/ferramenta/' + str(ferramenta.id))
 
         else:
@@ -51,12 +57,14 @@ def update_manutencao(request, id):
         if form.is_valid():
             manutencao = form.save(commit=False)
             manutencao.ferramenta = feramenta
-            manutencao.save()
+            if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
+                manutencao.status_manutencao = "Atrasada"
             if manutencao.status_manutencao == "Atrasada":
                 messages.add_message(request, messages.WARNING, 'Manutenção ATRASADA!!!')
             else:
                 messages.add_message(request, messages.SUCCESS,
                                      'Manutenção ' + manutencao.status_manutencao + ' com Sucesso!')
+            manutencao.save()
             return redirect('/ferramenta/' + str(feramenta.id))
 
     context = {
@@ -82,7 +90,10 @@ def agendamento_rapido(request, id):
         if form.is_valid():
             manutencao = form.save(commit=False)
             manutencao.ferramenta = ferramenta
-            manutencao.status_manutencao = "Agendada"
+            if manutencao.data_manutencao < date.today():
+                manutencao.status_manutencao = "Atrasada"
+            else:
+                manutencao.status_manutencao = "Agendada"
             manutencao.save()
             messages.add_message(request, messages.SUCCESS, "Manutenção Agendada com sucesso!")
             return redirect('/cliente/' + str(ferramenta.cliente.id))
@@ -93,5 +104,3 @@ def agendamento_rapido(request, id):
                 'form': form,
             }
             return render(request, "manutencoes/agendamento_rapido.html", context)
-
-
