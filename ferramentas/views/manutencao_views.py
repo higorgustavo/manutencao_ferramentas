@@ -33,7 +33,10 @@ def create_manutencao(request, id):
             manutencao.ferramenta = ferramenta
             if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
                 manutencao.status_manutencao = "Atrasada"
-            if manutencao.status_manutencao == "Atrasada":
+            elif manutencao.status_manutencao == "Atrasada" and manutencao.data_manutencao == date.today():
+                manutencao.status_manutencao = "Agendada"
+                messages.add_message(request, messages.WARNING, 'Manutenção ATRASADA!!!')
+            elif manutencao.status_manutencao == "Atrasada":
                 messages.add_message(request, messages.WARNING, 'Manutenção ATRASADA!!!')
             else:
                 messages.add_message(request, messages.SUCCESS, "Manutenção registrada com sucesso")
@@ -59,7 +62,9 @@ def update_manutencao(request, id):
             manutencao.ferramenta = feramenta
             if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
                 manutencao.status_manutencao = "Atrasada"
-            if manutencao.status_manutencao == "Atrasada":
+            elif manutencao.status_manutencao == "Atrasada" and manutencao.data_manutencao == date.today():
+                manutencao.status_manutencao = "Agendada"
+            elif manutencao.status_manutencao == "Atrasada":
                 messages.add_message(request, messages.WARNING, 'Manutenção ATRASADA!!!')
             else:
                 messages.add_message(request, messages.SUCCESS,
