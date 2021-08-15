@@ -14,6 +14,10 @@
   margin-top: 10px;
 }
 
+.margin-left-10 {
+  margin-left: 10px;
+}
+
 .title {
   margin: 0 auto 20px auto;
   text-align: center;
@@ -31,4 +35,8 @@
 
 .responsive-link {
   margin-top: 0;
+}
+
+.button-atualizar {
+  float: right;
 }

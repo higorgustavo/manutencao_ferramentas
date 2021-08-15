@@ -29,7 +29,8 @@
         <input type="submit" class="btn btn-success" value="Registrar Manutenção"
                onclick="location.href='{% url 'create_manutencao' ferramenta.id %}'">
 
-        <a tabindex="0" class="btn btn-sm btn-light" role="button" data-bs-toggle="popover" data-bs-trigger="focus"
+        <a tabindex="0" class="btn btn-sm btn-light margin-left-10" role="button" data-bs-toggle="popover"
+           data-bs-trigger="focus"
            title="Módulo de Manutenções" data-bs-content="<p>Permite registar manutenções avulsas no sistema, como:
            manutenções passadas da ferramenta ou agendar manutenções futuras.</p>
            <p>Clicando em <strong>Ver</strong> são exibidos os detalhes da manutenção.</p>
@@ -68,10 +69,10 @@
                                 <input type="submit" class="btn btn-success btn-sm" value="Realizar"
                                        onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Atrasada" %}
-                                <input type="submit" class="btn btn-warning btn-sm" value="Realizar"
+                                <input type="submit" class="btn btn-danger btn-sm" value="Realizar"
                                        onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Cancelada" %}
-                                <input type="submit" class="btn btn-danger btn-sm" value="Alterar"
+                                <input type="submit" class="btn btn-warning btn-sm" value="Alterar"
                                        onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% elif manutencao.status_manutencao == "Concluída" %}
                                 <input type="submit" class="btn btn-secondary btn-sm" value="Refazer"
@@ -100,7 +101,6 @@
 
 {% block scripts %}
     {% include "components/_messages-js.html" %}
-
     <script>
         function carregarModal(id) {
             $.ajax({

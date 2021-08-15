@@ -3,18 +3,91 @@
 {% block title %} Assistência Técnica {% endblock %}
 
 {% block content %}
+    <input type="submit" class="btn btn-success margin-bottom-10" value="Atualizar Agendamentos"
+           onclick="location.href='{% url 'refresh_datas' %}'">
+
+    <a tabindex="0" class="btn btn-sm btn-light margin-left-10" role="button" data-bs-toggle="popover"
+       data-bs-trigger="focus"
+       title="Atualização de Agendamentos" data-bs-content="<p>A primeira vez que abrir o sistema
+       clique em <strong>Atualizar Agendamentos</strong> para que a base de dados seja atualizada
+       e funcionar normamente.</p>
+       <p><strong>Obs.: </strong> É necessário clicar apenas uma vez por dia na atualização de agendamentos!</p>
+       <p><strong>Importante: </strong> A data do computador deve estar correta!</p>
+    ">
+        Por que atualizar?
+    </a>
+
     <h4 class="title">Manutenções</h4>
-    <p>Agendadas: {{ agendadas }}</p>
-    <p>Agendadas para Hoje: {{ agendadas_hoje }}</p>
-    <p>Concluídas: {{ concluidas }}</p>
-    <p>Atrasadas: {{ atrasadas }}</p>
+    <hr>
+
+    <div class="row row-cols-1 row-cols-md-4 mb-4 text-center">
+
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3 text-white bg-primary border-primar">
+                    <h4 class="my-0 fw-normal">Agendadas</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ agendadas }}</h1>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Visualizar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3 text-white bg-success border-primar">
+                    <h4 class="my-0 fw-normal">Para Hoje</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ agendadas_hoje }}</h1>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-success">Visualizar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3 text-white bg-danger border-primar">
+                    <h4 class="my-0 fw-normal">Atrasadas</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ atrasadas }}</h1>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-danger">Visualizar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3 text-white bg-dark border-primar">
+                    <h4 class="my-0 fw-normal">Concluídas</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ concluidas }}</h1>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-dark">Visualizar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% include "components/_messages.html" %}
+
 {% endblock %}
 
 {% block scripts %}
+    {% include "components/_messages-js.html" %}
     <script>
         setTimeout(function () {
             window.location.reload(1);
-        }, 600000);
+        }, 300000);
         console.log("recarregou")
+    </script>
+    <script>
+        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl, {html: true})
+        });
     </script>
 {% endblock %}
