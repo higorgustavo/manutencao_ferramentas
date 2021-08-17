@@ -109,3 +109,43 @@ def agendamento_rapido(request, id):
                 'form': form,
             }
             return render(request, "manutencoes/agendamento_rapido.html", context)
+
+
+def list_agendadas(request):
+    manutencoes = Manutencao.objects.filter(status_manutencao="Agendada")
+    status = "Agendadas"
+    context = {
+        'manutencoes': manutencoes,
+        'status': status
+    }
+    return render(request, "manutencoes/list.html", context)
+
+
+def list_agendadas_hoje(request):
+    manutencoes = Manutencao.objects.filter(status_manutencao="Agendada", data_manutencao=date.today())
+    status = "Agendadas para Hoje"
+    context = {
+        'manutencoes': manutencoes,
+        'status': status
+    }
+    return render(request, "manutencoes/list.html", context)
+
+
+def list_atrasadas(request):
+    manutencoes = Manutencao.objects.filter(status_manutencao="Atrasada")
+    status = "Atrasadas"
+    context = {
+        'manutencoes': manutencoes,
+        'status': status
+    }
+    return render(request, "manutencoes/list.html", context)
+
+
+def list_concluidas(request):
+    manutencoes = Manutencao.objects.filter(status_manutencao="Concluída")
+    status = "Concluídas"
+    context = {
+        'manutencoes': manutencoes,
+        'status': status
+    }
+    return render(request, "manutencoes/list.html", context)

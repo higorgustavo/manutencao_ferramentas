@@ -3,19 +3,21 @@
 {% block title %} Assistência Técnica {% endblock %}
 
 {% block content %}
-    <input type="submit" class="btn btn-success margin-bottom-10" value="Atualizar Agendamentos"
-           onclick="location.href='{% url 'refresh_datas' %}'">
+    <div class="margin-bottom-10">
+        <input type="submit" class="btn btn-success margin-bottom-10" value="Atualizar Agendamentos"
+               onclick="location.href='{% url 'refresh_datas' %}'">
 
-    <a tabindex="0" class="btn btn-sm btn-light margin-left-10" role="button" data-bs-toggle="popover"
-       data-bs-trigger="focus"
-       title="Atualização de Agendamentos" data-bs-content="<p>A primeira vez que abrir o sistema
+        <a tabindex="0" class="btn btn-sm btn-light margin-left-10" role="button" data-bs-toggle="popover"
+           data-bs-trigger="focus"
+           title="Atualização de Agendamentos" data-bs-content="<p>A primeira vez que abrir o sistema
        clique em <strong>Atualizar Agendamentos</strong> para que a base de dados seja atualizada
        e funcionar normamente.</p>
        <p><strong>Obs.: </strong> É necessário clicar apenas uma vez por dia na atualização de agendamentos!</p>
        <p><strong>Importante: </strong> A data do computador deve estar correta!</p>
-    ">
-        Por que atualizar?
-    </a>
+        ">
+            Por que atualizar?
+        </a>
+    </div>
 
     <h4 class="title">Manutenções</h4>
     <hr>
@@ -29,7 +31,8 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ agendadas }}</h1>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Visualizar</button>
+                    <input type="submit" class="w-100 btn btn-lg btn-outline-primary" value="Visualizar"
+                           onclick="location.href='{% url 'list_agendadas' %}'">
                 </div>
             </div>
         </div>
@@ -41,7 +44,8 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ agendadas_hoje }}</h1>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-success">Visualizar</button>
+                    <input type="submit" class="w-100 btn btn-lg btn-outline-success" value="Visualizar"
+                           onclick="location.href='{% url 'list_agendadas_hoje' %}'">
                 </div>
             </div>
         </div>
@@ -53,7 +57,8 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ atrasadas }}</h1>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-danger">Visualizar</button>
+                    <input type="submit" class="w-100 btn btn-lg btn-outline-danger" value="Visualizar"
+                           onclick="location.href='{% url 'list_atrasadas' %}'">
                 </div>
             </div>
         </div>
@@ -65,7 +70,8 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ concluidas }}</h1>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-dark">Visualizar</button>
+                    <input type="submit" class="w-100 btn btn-lg btn-outline-dark" value="Visualizar"
+                           onclick="location.href='{% url 'list_concluidas' %}'">
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ from datetime import date
 
 def detail_ferramenta(reqeust, id):
     ferramenta = get_object_or_404(Ferramenta, id=id)
-    manutencoes = Manutencao.objects.filter(ferramenta_id=ferramenta.id)
+    manutencoes = Manutencao.objects.select_related('ferramenta').filter(ferramenta_id=ferramenta.id)
     cliente = ferramenta.cliente
     # for manutencao in manutencoes:
     #     if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():

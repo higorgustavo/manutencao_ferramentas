@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} Manutenções {{ status }} {% endblock %}
+
+{% block content %}
+    <h3 class="title">Manutenções {{ status }}</h3>
+    {% for manutencoe in manutencoes %}
+        <p>{{ manutencoe.ferramenta.nome }}</p>
+    {% endfor %}
+
+
+{% endblock %}

@@ -3,6 +3,11 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
+    <p><strong>Dono: </strong>{{ manutencao.ferramenta.cliente.nome|title }}</p>
+    <p><strong>Telefone Principal: </strong>{{ manutencao.ferramenta.cliente.telefone1 }}</p>
+    {% if manutencao.ferramenta.cliente.telefone2  is not null%}
+        <p><strong>Telefone Reserva: </strong>{{ manutencao.ferramenta.cliente.telefone2 }}</p>
+    {% endif %}
     <p><strong>Ferramenta: </strong>{{ manutencao.ferramenta.nome|title }}</p>
     <p><strong>Data: </strong>{{ manutencao.data_manutencao|date:"d/m/Y" }}</p>
     <p><strong>Status: </strong>{{ manutencao.status_manutencao }}</p>

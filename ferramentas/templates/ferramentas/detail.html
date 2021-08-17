@@ -7,7 +7,8 @@
 
     <h4 class="title">Dados da Ferramenta</h4>
     <div>
-        <p>Nome: <strong>{{ ferramenta.nome }}</strong></p>
+        <p>Dono: <strong>{{ ferramenta.cliente.nome|title }}</strong></p>
+        <p>Ferramenta: <strong>{{ ferramenta.nome }}</strong></p>
         {% if ferramenta.numero_serie is not null %}
             <p>Número de série: <strong>{{ ferramenta.numero_serie }}</strong></p>
         {% endif %}
@@ -15,7 +16,9 @@
             <p>Data de compra: <strong>{{ ferramenta.data_compra|date:"d/m/Y" }}</strong></p>
         {% endif %}
         {% if ferramenta.observacoes is not null %}
-            <p>Observações: <strong>{{ ferramenta.observacoes }}</strong></p>
+            {% if ferramenta.observacoes != "" %}
+                <p>Observações: <strong>{{ ferramenta.observacoes }}</strong></p>
+            {% endif %}
         {% endif %}
 
         <input type="reset" class="btn btn-secondary" value="Voltar"
