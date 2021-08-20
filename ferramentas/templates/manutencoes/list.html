@@ -1,12 +1,100 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block title %} Manutenções {{ status }} {% endblock %}
 
 {% block content %}
     <h3 class="title">Manutenções {{ status }}</h3>
-    {% for manutencoe in manutencoes %}
-        <p>{{ manutencoe.ferramenta.nome }}</p>
-    {% endfor %}
+    <hr>
+    <form method="get">
+        <div class="input-group centralizar-filter margin-bottom-10">
+            <strong class="margin-right-5">Filtrar por:</strong>
+            {% render_field manutencao_filter.form.local|add_class:'form-select' %}
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+        </div>
+    </form>
+
+    {% if manutencoes|length != 0 %}
+
+        <table class="table table-hover margin-top-10">
+            <thead>
+            <tr>
+                <th colspan="2">Data</th>
+                <th colspan="2">Local</th>
+                <th colspan="2">Cliente</th>
+                <th colspan="2">Status</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for manutencao in manutencoes %}
+                <tr>
+                    <td colspan="2">
+                        <strong>{{ manutencao.data_manutencao|date:"d/m/Y" }}</strong>
+                    </td>
+                    <td colspan="2">
+                        <strong>{{ manutencao.local }}</strong>
+                    </td>
+                    <td colspan="2">
+                        <strong>{{ manutencao.ferramenta.cliente.nome|title }}</strong>
+                    </td>
+                    <td colspan="2">
+                        <strong>{{ manutencao.status_manutencao }}</strong>
+                    </td>
+                    <td>
+                        {% if manutencao.status_manutencao == "Agendada" %}
+                            <input type="submit" class="btn btn-success btn-sm" value="Realizar"
+                                   onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
+                        {% elif manutencao.status_manutencao == "Atrasada" %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Realizar"
+                                   onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
+                        {% elif manutencao.status_manutencao == "Cancelada" %}
+                            <input type="submit" class="btn btn-warning btn-sm" value="Alterar"
+                                   onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
+                        {% elif manutencao.status_manutencao == "Concluída" %}
+                            <input type="submit" class="btn btn-secondary btn-sm" value="Refazer"
+                                   onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
+                        {% endif %}
+                        <button class="btn btn-primary btn-sm responsive-link"
+                                onclick="carregarModal({{ manutencao.id }})"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal-manutencao">
+                            Ver
+                        </button>
+                    </td>
+                </tr>
+                <div class="modal fade" id="modal-manutencao" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" id="corpo_manutencao">
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% include "components/_paginator-manutencoes.html" %}
+
+    {% else %}
+        <h4>Nenhuma manutenção registrada</h4>
+    {% endif %}
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function carregarModal(id) {
+            $.ajax({
+                url: '/manutencao/' + id + '/visualizar',
+                success: function (data) {
+                    $('#corpo_manutencao').html(data)
+                }, error: function (data) {
+                },
+            });
+        }
+    </script>
 {% endblock %}

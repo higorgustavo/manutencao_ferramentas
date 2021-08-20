@@ -11,16 +11,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'list_clintes' %}">Clientes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Manutenções</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown"
-                       aria-expanded="false">Outros</a>
+                       aria-expanded="false">Manutenções</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown07">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list_agendadas' %}">Agendadas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list_agendadas_hoje' %}">Agendadas para Hoje</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list_atrasadas' %}">Atrasadas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list_concluidas' %}">Concluídas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list_canceladas' %}">Canceladas</a></li>
                     </ul>
                 </li>
             </ul>

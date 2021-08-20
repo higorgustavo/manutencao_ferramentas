@@ -17,7 +17,7 @@ class FerramentaForm(forms.ModelForm):
 class ManutencaoForm(forms.ModelForm):
     class Meta:
         model = Manutencao
-        fields = {'data_manutencao', 'status_manutencao', 'observacoes', 'valor', 'numero_os'}
+        fields = {'data_manutencao', 'local', 'status_manutencao', 'observacoes', 'valor', 'numero_os'}
         widgets = {
             'data_manutencao': forms.TextInput(
                 attrs={'class': 'form-control', 'type': 'date', 'id': 'data_manutencao'}),
@@ -30,7 +30,7 @@ class ManutencaoForm(forms.ModelForm):
 class AgendamentoForm(forms.ModelForm):
     class Meta:
         model = Manutencao
-        fields = {'data_manutencao'}
+        fields = {'data_manutencao', 'local'}
         widgets = {
             'data_manutencao': forms.TextInput(
                 attrs={'class': 'form-control', 'type': 'date', 'id': 'data_manutencao'}),

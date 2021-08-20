@@ -7,8 +7,8 @@
 
     <h4 class="title">Dados da Ferramenta</h4>
     <div>
-        <p>Dono: <strong>{{ ferramenta.cliente.nome|title }}</strong></p>
-        <p>Ferramenta: <strong>{{ ferramenta.nome }}</strong></p>
+        <p>Cliente: <strong>{{ ferramenta.cliente.nome|title }}</strong></p>
+        <p>Ferramenta: <strong>{{ ferramenta.nome|title }}</strong></p>
         {% if ferramenta.numero_serie is not null %}
             <p>Número de série: <strong>{{ ferramenta.numero_serie }}</strong></p>
         {% endif %}
@@ -48,6 +48,7 @@
                 <thead>
                 <tr>
                     <th colspan="3">Data da Manutenção</th>
+                    <th colspan="3">Local</th>
                     <th colspan="3">Status</th>
                     <th scope="col">Ações</th>
                 </tr>
@@ -59,15 +60,12 @@
                             <strong>{{ manutencao.data_manutencao|date:"d/m/Y" }}</strong>
                         </td>
                         <td colspan="3">
+                            <strong>{{ manutencao.local }}</strong>
+                        </td>
+                        <td colspan="3">
                             <strong>{{ manutencao.status_manutencao }}</strong>
                         </td>
                         <td>
-                            <button class="btn btn-primary btn-sm"
-                                    onclick="carregarModal({{ manutencao.id }})"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-manutencao">
-                                Ver
-                            </button>
                             {% if manutencao.status_manutencao == "Agendada" %}
                                 <input type="submit" class="btn btn-success btn-sm" value="Realizar"
                                        onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
@@ -81,6 +79,12 @@
                                 <input type="submit" class="btn btn-secondary btn-sm" value="Refazer"
                                        onclick="location.href='{% url 'update_manutencao' manutencao.id %}'">
                             {% endif %}
+                            <button class="btn btn-primary btn-sm responsive-link"
+                                    onclick="carregarModal({{ manutencao.id }})"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-manutencao">
+                                Visualizar
+                            </button>
                         </td>
                     </tr>
                     <div class="modal fade" id="modal-manutencao" data-bs-backdrop="static" data-bs-keyboard="false"

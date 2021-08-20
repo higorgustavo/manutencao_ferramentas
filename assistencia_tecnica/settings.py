@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
+    'django_filters',
+    'widget_tweaks',
 
     'clientes',
     'ferramentas',

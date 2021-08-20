@@ -25,21 +25,27 @@ class Ferramenta(models.Model):
 
 
 class Manutencao(models.Model):
-    STATUS = [
+    STATUS_CHOICES = [
         ["Agendada", "Agendada"],
         ["Atrasada", "Atrasada"],
         ["Cancelada", "Cancelada"],
         ["Concluída", "Concluída"],
     ]
 
+    LOCAL_CHOICES = [
+        ["Triunfo", "Triunfo"],
+        ["Serra Talhada", "Serra Talhada"],
+    ]
+
     ferramenta = models.ForeignKey(Ferramenta, on_delete=models.CASCADE)
     data_manutencao = models.DateField(verbose_name="Data da Manutenção")
-    status_manutencao = models.CharField(max_length=25, choices=STATUS, verbose_name="Status da Manutenção")
+    local = models.CharField(max_length=30, choices=LOCAL_CHOICES, verbose_name="Local da Manutenção")
+    status_manutencao = models.CharField(max_length=25, choices=STATUS_CHOICES, verbose_name="Status da Manutenção")
     # data_prox_manutencao = models.DateField(null=True, blank=True, verbose_name="Data da próxima Manutenção")
     observacoes = models.TextField(verbose_name="Observações (opicional)", null=True, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
                                 verbose_name="Valor da Manutenção")
-    numero_os = models.IntegerField(verbose_name="Número da Ordem se Serviço", null=True, blank=True)
+    numero_os = models.IntegerField(verbose_name="Número da O.S.", null=True, blank=True)
 
     class Meta:
         verbose_name = 'Manutenção'

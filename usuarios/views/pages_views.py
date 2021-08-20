@@ -5,7 +5,7 @@ from django.contrib import messages
 from datetime import date
 
 
-def refresh_datas(request):
+def dashboard(request):
     manutencoes = Manutencao.objects.all()
     for manutencao in manutencoes:
         if manutencao.status_manutencao == "Agendada" and manutencao.data_manutencao < date.today():
@@ -14,11 +14,7 @@ def refresh_datas(request):
         if manutencao.status_manutencao == "Atrasada" and manutencao.data_manutencao >= date.today():
             manutencao.status_manutencao = "Agendada"
             Manutencao.objects.bulk_update(manutencoes, ['status_manutencao'])
-    messages.add_message(request, messages.SUCCESS, "Agendamentos atualizados com Sucesso!")
-    return redirect('dashboad')
 
-
-def dashboard(request):
     agendadas = Manutencao.objects.filter(status_manutencao="Agendada", data_manutencao__gte=date.today()).count()
     agendadas_hoje = Manutencao.objects.filter(status_manutencao="Agendada", data_manutencao=date.today()).count()
     concluidas = Manutencao.objects.filter(status_manutencao="Concluída").count()

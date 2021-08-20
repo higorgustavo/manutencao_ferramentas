@@ -6,7 +6,8 @@
 {% block content %}
     <h3 class="title">Agendar Manutenção</h3>
     <div class="form-floating mb-3">
-        <h5>Ferramenta: <strong>{{ ferramenta.nome }}</strong></h5>
+        <p>Cliente: <strong>{{ ferramenta.cliente.nome|title }}</strong></p>
+        <p>Ferramenta: <strong>{{ ferramenta.nome|title  }}</strong></p>
         <hr>
         <form method="post" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
@@ -14,6 +15,10 @@
                 <div class="col-sm margin-bottom-10">
                     {{ form.data_manutencao|as_crispy_field }}
                     {{ form.data_manutencao|as_crispy_errors }}
+                </div>
+                <div class="col-sm margin-bottom-10">
+                    {{ form.local|as_crispy_field }}
+                    {{ form.local|as_crispy_errors }}
                 </div>
             </div>
 

@@ -14,4 +14,5 @@ urlpatterns = [
     path("manutencoes/agendadas-para-hoje", list_agendadas_hoje, name='list_agendadas_hoje'),
     path("manutencoes/atrasadas", list_atrasadas, name='list_atrasadas'),
     path("manutencoes/concluidas", list_concluidas, name='list_concluidas'),
+    path("manutencoes/canceladas", list_canceladas, name='list_canceladas'),
 ]
