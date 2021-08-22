@@ -2,10 +2,10 @@
     <ul class="pagination pagination-sm">
         {% if manutencoes.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?p=1&termo={{ request.GET.local }}">&laquo;</a>
+                <a class="page-link" href="?p=1&termo={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}">&laquo;</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?p={{ manutencoes.previous_page_number }}&local={{ request.GET.local }}"
+                <a class="page-link" href="?p={{ manutencoes.previous_page_number }}&local={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}"
                    aria-label="Previous">
                     <span aria-hidden="true">&lsaquo;</span>
                 </a>
@@ -14,24 +14,25 @@
         {% for pagina in manutencoes.paginator.page_range %}
             {% if manutencoes.number == pagina %}
                 <li class="page-item active">
-                    <a class="page-link" href="?p={{ pagina }}&local={{ request.GET.local }}">{{ pagina }}</a>
+                    <a class="page-link" href="?p={{ pagina }}&local={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}">{{ pagina }}</a>
                 </li>
             {% elif pagina > manutencoes.number|add:'-3' and pagina < manutencoes.number|add:'3' %}
                 <li class="page-item">
-                    <a class="page-link" href="?p={{ pagina }}&local={{ request.GET.local }}">{{ pagina }}</a>
+                    <a class="page-link" href="?p={{ pagina }}&local={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}">{{ pagina }}</a>
                 </li>
             {% endif %}
         {% endfor %}
         {% if manutencoes.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?p={{ manutencoes.next_page_number }}&local={{ request.GET.local }}"
+                <a class="page-link"
+                   href="?p={{ manutencoes.next_page_number }}&local={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}"
                    aria-label="Next">
                     <span aria-hidden="true">&rsaquo;</span>
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link"
-                   href="?p={{ manutencoes.paginator.num_pages }}&local={{ request.GET.local }}">&raquo;</a>
+                   href="?p={{ manutencoes.paginator.num_pages }}&local={{ request.GET.local }}&data_inicial={{ request.GET.data_inicial }}&data_final={{ request.GET.data_final }}">&raquo;</a>
             </li>
         {% endif %}
     </ul>

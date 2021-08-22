@@ -121,17 +121,30 @@ def agendamento_rapido(request, id):
 
 
 def list_agendadas(request):
-    manutencoes = Manutencao.objects.filter(status_manutencao="Agendada")
+    data_inicial = request.GET.get('data_inicial')
+    data_final = request.GET.get('data_final')
     status = "Agendadas"
-    manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
-    manutencoes = manutencao_filter.qs
-    paginator = Paginator(manutencoes, 10)
-    page = request.GET.get('p')
-    manutencoes = paginator.get_page(page)
+    if data_inicial and data_final:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Agendada",
+                                                data_manutencao__range=[data_inicial, data_final])
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
+    else:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Agendada")
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
     context = {
         'manutencoes': manutencoes,
         'status': status,
-        'manutencao_filter': manutencao_filter
+        'manutencao_filter': manutencao_filter,
+        'data_inicial': data_inicial,
+        'data_final': data_final
     }
     return render(request, "manutencoes/list.html", context)
 
@@ -153,48 +166,87 @@ def list_agendadas_hoje(request):
 
 
 def list_atrasadas(request):
-    manutencoes = Manutencao.objects.filter(status_manutencao="Atrasada")
+    data_inicial = request.GET.get('data_inicial')
+    data_final = request.GET.get('data_final')
     status = "Atrasadas"
-    manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
-    manutencoes = manutencao_filter.qs
-    paginator = Paginator(manutencoes, 10)
-    page = request.GET.get('p')
-    manutencoes = paginator.get_page(page)
+    if data_inicial and data_final:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Atrasada",
+                                                data_manutencao__range=[data_inicial, data_final])
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
+    else:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Atrasada")
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
     context = {
         'manutencoes': manutencoes,
         'status': status,
-        'manutencao_filter': manutencao_filter
+        'manutencao_filter': manutencao_filter,
+        'data_inicial': data_inicial,
+        'data_final': data_final
     }
     return render(request, "manutencoes/list.html", context)
 
 
 def list_concluidas(request):
-    manutencoes = Manutencao.objects.filter(status_manutencao="Concluída")
+    data_inicial = request.GET.get('data_inicial')
+    data_final = request.GET.get('data_final')
     status = "Concluídas"
-    manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
-    manutencoes = manutencao_filter.qs
-    paginator = Paginator(manutencoes, 10)
-    page = request.GET.get('p')
-    manutencoes = paginator.get_page(page)
+    if data_inicial and data_final:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Concluída",
+                                                data_manutencao__range=[data_inicial, data_final])
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
+    else:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Concluída")
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
     context = {
         'manutencoes': manutencoes,
         'status': status,
-        'manutencao_filter': manutencao_filter
+        'manutencao_filter': manutencao_filter,
+        'data_inicial': data_inicial,
+        'data_final': data_final
     }
     return render(request, "manutencoes/list.html", context)
 
 
 def list_canceladas(request):
-    manutencoes = Manutencao.objects.filter(status_manutencao="Cancelada")
+    data_inicial = request.GET.get('data_inicial')
+    data_final = request.GET.get('data_final')
     status = "Canceladas"
-    manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
-    manutencoes = manutencao_filter.qs
-    paginator = Paginator(manutencoes, 10)
-    page = request.GET.get('p')
-    manutencoes = paginator.get_page(page)
+    if data_inicial and data_final:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Cancelada",
+                                                data_manutencao__range=[data_inicial, data_final])
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
+    else:
+        manutencoes = Manutencao.objects.filter(status_manutencao="Cancelada")
+        manutencao_filter = ManutencaoFilter(request.GET, queryset=manutencoes)
+        manutencoes = manutencao_filter.qs
+        paginator = Paginator(manutencoes, 10)
+        page = request.GET.get('p')
+        manutencoes = paginator.get_page(page)
     context = {
         'manutencoes': manutencoes,
         'status': status,
-        'manutencao_filter': manutencao_filter
+        'manutencao_filter': manutencao_filter,
+        'data_inicial': data_inicial,
+        'data_final': data_final
     }
     return render(request, "manutencoes/list.html", context)
