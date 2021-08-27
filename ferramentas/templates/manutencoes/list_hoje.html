@@ -8,22 +8,10 @@
     <hr>
     <div class="margin-bottom-10">
         <form method="get">
-            <div class="row ">
-                <div class="col margin-bottom-10">
-                    <strong>Local:</strong>
-                    {% render_field manutencao_filter.form.local|add_class:'form-select' %}
-                </div>
-                <div class="col-md-auto margin-bottom-10">
-                    <label><strong>Data Inicial:</strong>
-                        <input class="form-control" name="data_inicial" type="date" value="{{ data_inicial }}"/>
-                    </label>
-                    <label><strong>Data Final:</strong>
-                        <input class="form-control" name="data_final" type="date" value="{{ data_final }}"/>
-                    </label>
-                </div>
-                <div class="col col-lg-2 margin-top-24">
-                    <button class="btn btn-primary" type="submit">Filtrar</button>
-                </div>
+            <strong class="margin-right-5">Local:</strong>
+            <div class="input-group centralizar-filter">
+                {% render_field manutencao_filter.form.local|add_class:'form-select' %}
+                <button type="submit" class="btn btn-primary">Filtrar</button>
             </div>
         </form>
     </div>
@@ -91,7 +79,7 @@
             </tbody>
         </table>
 
-        {% include "components/_paginator-manutencoes.html" %}
+        {% include "components/_paginator-hoje.html" %}
 
     {% else %}
         <p class="margin-top-10">Nenhuma manutenção registrada</p>

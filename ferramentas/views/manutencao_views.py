@@ -162,7 +162,7 @@ def list_agendadas_hoje(request):
         'status': status,
         'manutencao_filter': manutencao_filter
     }
-    return render(request, "manutencoes/list.html", context)
+    return render(request, "manutencoes/list_hoje.html", context)
 
 
 def list_atrasadas(request):

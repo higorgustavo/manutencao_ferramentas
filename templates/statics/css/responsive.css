@@ -7,4 +7,8 @@
     .margin-top-24 {
         margin-top: 0;
     }
+
+    .centralizar-filter {
+        width: 100%;
+    }
 }
